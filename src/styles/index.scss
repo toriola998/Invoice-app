@@ -1,10 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
+:root {
+   --blue: #7c5dfa;
+   --blue-2: #9277ff;
+   --black: #1e2139;
+   --black-2: #252945;
+   --black-3: #0c0e16 --black-4: #141625;
+   --black-5: #494e6e;
+   --black-6: #373b53;
+   --grey-4: #777f98;
+   --grey: #dfe3fa;
+   --grey-1: #888eb0;
+   --grey-2: #7e88c3;
+   --grey-3: #858bb2;
+   --orange: #ec5757;
+   --light-orange: #9277ff;
+   --light: #f8f8fb;
+   --light-2: #f9fafe;
+}
