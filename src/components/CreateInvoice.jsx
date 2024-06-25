@@ -1,4 +1,5 @@
 import InvoiceLayout from './layout/InvoiceLayout';
+import InputField from './shared/InputField';
 
 export default function CreateInvoice() {
    return (
@@ -6,6 +7,8 @@ export default function CreateInvoice() {
          <p className="font-bold text-2xl">New Invoice</p>
          <div className="mb-9">
             <p className="bold-15 text-blue my-6 md:mt-12">Bill From</p>
+
+            <InputField type="text" label="Name" />
          </div>
 
          <div className="bottom-btns">
