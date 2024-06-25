@@ -2,6 +2,7 @@ import NavBar from '../components/shared/NavBar';
 import TheHeader from '../components/home/TheHeader';
 
 import { useState } from 'react';
+import CreateInvoice from '../components/CreateInvoice';
 
 export default function Home() {
    const [showForm, setForm] = useState(false);
@@ -15,7 +16,9 @@ export default function Home() {
                   setForm(true);
                }}
             />
-            <main></main>
+            <main>
+               <CreateInvoice />
+            </main>
          </div>
       </div>
    );

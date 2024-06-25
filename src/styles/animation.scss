@@ -1,0 +1,33 @@
+@keyframes invoiceActive {
+   from {
+      transform: translateX(-100vw);
+   }
+   to {
+      transform: translateX(0);
+   }
+}
+
+.invoice-active {
+   animation: invoiceActive 0.5s ease-in;
+   //animation-duration: 0.2s;
+}
+
+/* width */
+::-webkit-scrollbar {
+   width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+   background: #141625;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+   background: #252945;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   background: #252945;
+}
