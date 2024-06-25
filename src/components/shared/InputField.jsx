@@ -3,7 +3,7 @@ export default function InputField({
    name,
    errorMessage,
    defaultValue,
-   type,
+   type = 'text',
    placeholder,
    fieldName,
 }) {
