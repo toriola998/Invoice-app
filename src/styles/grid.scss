@@ -43,13 +43,13 @@
    grid-area: client_country;
 }
 .bills-to div:nth-child(7) {
-   grid-area: project_name;
-}
-.bills-to div:nth-child(8) {
    grid-area: invoice_date;
 }
-.bills-to div:nth-child(9) {
+.bills-to div:nth-child(8) {
    grid-area: payment_terms;
+}
+.bills-to div:nth-child(9) {
+   grid-area: project_name;
 }
 
 .bills-to {

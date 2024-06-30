@@ -96,11 +96,7 @@ export default function CreateInvoice() {
                      fieldName={register('invoiceDate')}
                      errorMessage={errors.invoiceDate?.message}
                   />
-                  <InputField
-                     label="Project Description"
-                     fieldName={register('projectDescription')}
-                     errorMessage={errors.projectDescription?.message}
-                  />
+
                   <Controller
                      name="paymentTerms"
                      control={control}
@@ -119,6 +115,11 @@ export default function CreateInvoice() {
                            }
                         />
                      )}
+                  />
+                  <InputField
+                     label="Project Description"
+                     fieldName={register('projectDescription')}
+                     errorMessage={errors.projectDescription?.message}
                   />
                </div>
             </div>
