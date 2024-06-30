@@ -1,13 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import InvoiceLayout from './layout/InvoiceLayout';
 import InputField from './shared/InputField';
+import SelectDropdown from './shared/SelectDropdown';
 import schemas from '../schema/index';
 
 export default function CreateInvoice() {
    const {
       register,
       handleSubmit,
+      control,
       formState: { errors },
    } = useForm({
       resolver: yupResolver(schemas.invoiceSchema),
@@ -16,6 +18,13 @@ export default function CreateInvoice() {
    function onSubmit(formData) {
       console.log(formData);
    }
+
+   const paymentTermOptions = [
+      { value: '1 day', label: 'Net 1 day' },
+      { value: '7-days', label: 'Net 7 days' },
+      { value: '14-days', label: 'Net 14 days' },
+      { value: '30-days', label: 'Net 30 days' },
+   ];
 
    return (
       <InvoiceLayout>
@@ -91,6 +100,25 @@ export default function CreateInvoice() {
                      label="Project Description"
                      fieldName={register('projectDescription')}
                      errorMessage={errors.projectDescription?.message}
+                  />
+                  <Controller
+                     name="paymentTerms"
+                     control={control}
+                     // defaultValue={{
+                     //    label: modeOfDelivery,
+                     //    value: modeOfDelivery,
+                     // }}
+                     render={({ field }) => (
+                        <SelectDropdown
+                           label="Payment Terms"
+                           options={paymentTermOptions}
+                           field={field}
+                           errorMessage={errors?.paymentTerms?.message}
+                           onChange={(selectedOption) =>
+                              field.onChange(selectedOption)
+                           }
+                        />
+                     )}
                   />
                </div>
             </div>

@@ -14,7 +14,7 @@ const invoiceSchema = yup.object().shape({
    clientPostCode: yup.number().required('Enter Post code'),
    clientCountry: yup.string().required('Enter city'),
    invoiceDate: yup.string().required('Enter Date'),
-   paymentTerms: yup.string().required('Enter payment Terms'),
+   paymentTerms: yup.object().required('Enter Payment Terms'),
    projectDescription: yup.string().required('Enter description'),
 });
 const schemas = {
