@@ -15,7 +15,8 @@ input[type='number'] {
    @apply pl-5 h-12 outline-0 bold-15 mt-2 rounded bg-black w-full;
 }
 
-.label {
+.label,
+.group-input-labels p {
    @apply text-[.82rem] font-medium text-grey;
 }
 

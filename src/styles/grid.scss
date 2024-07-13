@@ -73,3 +73,58 @@
          'project_name project_name project_name project_name project_name project_name';
    }
 }
+
+.group-inputs div:nth-child(1) {
+   grid-area: name;
+}
+.group-inputs div:nth-child(2) {
+   grid-area: quantity;
+   // max-width: 30px;
+}
+.group-inputs div:nth-child(3) {
+   grid-area: price;
+}
+.group-inputs p {
+   grid-area: total;
+}
+.group-inputs div:nth-child(4) {
+   grid-area: delete_icon;
+}
+
+.group-inputs {
+   // grid-template-areas:
+
+   @media only screen and (min-width: 768px) {
+      grid-template-areas: 'name name name name quantity price price total total total total delete_icon delete_icon';
+   }
+}
+
+// .group-input-labels p {
+//    width: 100%;
+// }
+
+// .group-input-labels p:nth-child(1) {
+//    grid-area: name;
+// }
+
+// .group-input-labels p:nth-child(2) {
+//    grid-area: quantity;
+// }
+
+// .group-input-labels p:nth-child(3) {
+//    grid-area: price;
+// }
+
+// .group-input-labels p:nth-child(4) {
+//    grid-area: total;
+// }
+
+// .group-input-labels p:nth-child(5) {
+//    grid-area: delete_icon;
+// }
+
+// .group-input-labels {
+//    @media only screen and (min-width: 768px) {
+//       grid-template-areas: 'name name name name name name name name quantity price price total total total total delete_icon delete_icon';
+//    }
+// }

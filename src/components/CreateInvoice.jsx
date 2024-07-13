@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import InvoiceLayout from './layout/InvoiceLayout';
 import InputField from './shared/InputField';
 import SelectDropdown from './shared/SelectDropdown';
@@ -10,13 +10,24 @@ export default function CreateInvoice() {
       register,
       handleSubmit,
       control,
+      getValues,
       formState: { errors },
    } = useForm({
       resolver: yupResolver(schemas.invoiceSchema),
    });
 
+   const { fields, append, remove } = useFieldArray({
+      name: 'items',
+      control,
+   });
+
    function onSubmit(formData) {
       console.log(formData);
+   }
+
+   function onSaveAsDraft() {
+      const draftData = getValues();
+      console.log(draftData);
    }
 
    const paymentTermOptions = [
@@ -124,11 +135,58 @@ export default function CreateInvoice() {
                </div>
             </div>
 
+            <div className="flex justify-around group-input-labels">
+               <p className="w-[150px]">Item Name</p>
+               <p>Qty.</p>
+               <p>Price</p>
+               <p>Total</p>
+               <p></p>
+            </div>
+            {fields.map((field, index) => (
+               <div
+                  key={field.id}
+                  className="group-inputs grid gap-x-5 items-center"
+               >
+                  <InputField
+                     fieldName={register(`items.${index}.itemName`)}
+                     errorMessage={errors.items?.[index]?.itemName}
+                  />
+
+                  <InputField
+                     fieldName={register(`items.${index}.quantity`)}
+                     errorMessage={errors.items?.[index]?.quantity}
+                     type="number"
+                  />
+                  <InputField
+                     fieldName={register(`items.${index}.price`)}
+                     errorMessage={errors.items?.[index]?.price}
+                     type="number"
+                  />
+                  <p>0</p>
+                  <button type="button" onClick={() => remove(index)}>
+                     <img src="../assets/icons/icon-delete.png" alt="" />
+                  </button>
+               </div>
+            ))}
+            <button
+               type="button"
+               onClick={() => append({ itemName: '', quantity: '', price: '' })}
+               className="bg-black-2 rounded-full font-bold w-full text-grey py-3 mt-5"
+            >
+               + Add New Item
+            </button>
+
             <div className="bottom-btns">
                <div className="flex justify-between control-btn">
-                  <button className="bg-light-2 text-grey-2">Discard</button>
+                  <button className="bg-light-2 text-grey-2" type="button">
+                     Discard
+                  </button>
                   <div className="flex gap-2 ">
-                     <button className="text-grey bg-black-6">
+                     <button
+                        className="text-grey bg-black-6"
+                        type="button"
+                        onClick={onSaveAsDraft}
+                     >
                         Save as Draft
                      </button>
 
