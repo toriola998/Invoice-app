@@ -26,7 +26,7 @@ function Invoice({ id, name, date, price, status, link }) {
          </div>
 
          <img
-            src="src/assets/images/icons/icon-dropdown.svg"
+            src="../../assets/icons/icon-dropdown.svg"
             alt=""
             className="hidden md:flex -rotate-90"
          />

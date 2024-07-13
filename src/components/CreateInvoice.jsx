@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { addInvoiceToList } from '../store/invoiceSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import InvoiceLayout from './layout/InvoiceLayout';
@@ -5,13 +7,17 @@ import InputField from './shared/InputField';
 import SelectDropdown from './shared/SelectDropdown';
 import schemas from '../schema/index';
 
-export default function CreateInvoice() {
+export default function CreateInvoice({ onSuccess }) {
+   const invoiceList = useSelector((state) => state.invoice.invoiceList);
+   const dispatch = useDispatch();
+
    const {
       register,
       handleSubmit,
       control,
       getValues,
-      formState: { errors },
+      watch,
+      formState: { errors, isValid },
    } = useForm({
       resolver: yupResolver(schemas.invoiceSchema),
    });
@@ -20,14 +26,58 @@ export default function CreateInvoice() {
       name: 'items',
       control,
    });
+   const items = watch('items');
 
    function onSubmit(formData) {
       console.log(formData);
    }
 
+   //    function onSubmit(formData) {
+   //     const updatedItems = formData.items.map(item => ({
+   //        ...item,
+   //        total: item.quantity * item.price,
+   //     }));
+
+   //     const totalSum = updatedItems.reduce((sum, item) => sum + item.total, 0);
+
+   //     console.log({ ...formData, items: updatedItems, totalSum });
+   //  }
+
+   const generateUniqueId = () => {
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const randomAlphabet =
+         alphabet[Math.floor(Math.random() * alphabet.length)] +
+         alphabet[Math.floor(Math.random() * alphabet.length)];
+      const randomNumber = Math.floor(1000 + Math.random() * 9000); // ensures a 4-digit number
+      return `${randomAlphabet}${randomNumber}`;
+   };
+
    function onSaveAsDraft() {
       const draftData = getValues();
-      console.log(draftData);
+      const updatedItems = draftData.items.map((item) => ({
+         ...item,
+         total: item.quantity * item.price,
+      }));
+
+      const totalSum = updatedItems.reduce((sum, item) => sum + item.total, 0);
+
+      const newInvoice = {
+         id: generateUniqueId(),
+         status: 'Pending',
+         ...draftData,
+         items: updatedItems,
+         totalSum,
+      };
+
+      //   const draftData = getValues();
+      //   const newInvoice = {
+      //      id: generateUniqueId(),
+      //      status: 'Pending',
+      //      ...draftData,
+      //   };
+      dispatch(addInvoiceToList(newInvoice));
+      onSuccess(true);
+      console.log(draftData, invoiceList);
    }
 
    const paymentTermOptions = [
@@ -162,7 +212,11 @@ export default function CreateInvoice() {
                      errorMessage={errors.items?.[index]?.price}
                      type="number"
                   />
-                  <p>0</p>
+                  <p>
+                     {items?.[index]?.quantity && items?.[index]?.price
+                        ? items[index].quantity * items[index].price
+                        : 0}
+                  </p>
                   <button type="button" onClick={() => remove(index)}>
                      <img src="../assets/icons/icon-delete.png" alt="" />
                   </button>
@@ -190,7 +244,10 @@ export default function CreateInvoice() {
                         Save as Draft
                      </button>
 
-                     <button className="bg-blue">
+                     <button
+                        className={` ${isValid ? 'bg-blue' : 'bg-gray-200 text-gray-400'}`}
+                        disabled={isValid}
+                     >
                         <span>Save & Send</span>
                      </button>
                   </div>

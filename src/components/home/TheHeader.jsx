@@ -1,8 +1,8 @@
 import FilterDropdown from './FilterDropdown';
-// import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 function TheHeader({ showForm }) {
-   // const invoiceList = useSelector((state) => state.invoiceList.value);
+   const invoiceList = useSelector((state) => state.invoice.invoiceList);
 
    return (
       <header className="flex-center justify-between lg:py-6">
@@ -11,9 +11,9 @@ function TheHeader({ showForm }) {
             <p className="text-[13px] font-medium flex">
                <span className="hidden md:flex mr-1">There are</span>
                <span className="mr-1">
-                  {/* {invoiceList.length <= 1
-                     ? invoiceList.length + ' ' +  "invoice."
-                     : invoiceList.length + ' ' + "total invoices."} */}
+                  {invoiceList.length <= 1
+                     ? invoiceList.length + ' ' + 'invoice.'
+                     : invoiceList.length + ' ' + 'total invoices.'}
                </span>
             </p>
          </div>

@@ -55,9 +55,9 @@
    @apply fixed top-0 bottom-0 left-0 right-0 z-30 w-full flex-justify-center;
 }
 
-.container {
-   @apply px-6 md:px-12 lg:px-0 lg:max-w-[730px] lg:mx-auto;
-}
+// .home-container {
+//    @apply ;
+// }
 
 @media only screen and (min-width: 1024px) {
    .toggle-btn {
@@ -100,7 +100,7 @@ button {
 }
 
 .invoice-wrap {
-   @apply bg-black rounded-lg px-6 py-7 mt-8 md:flex items-baseline justify-between relative cursor-pointer;
+   @apply bg-black rounded-lg px-6 py-7 mt-8 md:flex justify-between relative cursor-pointer;
 
    &:hover {
       border: 2px solid var(--blue);
