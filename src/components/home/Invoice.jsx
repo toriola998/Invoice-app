@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import InvoiceStatus from '../shared/InvoiceStatus';
+import DATE from '../../utils/date';
 
 function Invoice({ id, name, date, price, status, link }) {
    return (
@@ -17,7 +18,7 @@ function Invoice({ id, name, date, price, status, link }) {
          <div className="flex-center justify-between md:items-baseline md:gap-x-10 md:pl-64">
             <div className="md:flex items-baseline gap-x-7">
                <p className="text-[.82rem] text-grey mb-2 md:mb-0 top-10 md:absolute left-56">
-                  Due {date}
+                  Due {DATE.formatDate(date)}
                </p>
                <p className="bold-15">£ {price}</p>
             </div>

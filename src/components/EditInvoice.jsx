@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addInvoiceToList } from '../store/invoiceSlice';
+import { addInvoiceToList, editAndSaveInvoice } from '../store/invoiceSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import InvoiceLayout from './layout/InvoiceLayout';
@@ -44,24 +44,11 @@ export default function EditInvoice({ onSuccess, closeModal, invoice }) {
    });
    const items = watch('items');
 
-   const areItemsValid = items?.every(
-      (item) => item.itemName && item.quantity && item.price,
-   );
-
    function onSubmit(formData) {
       console.log(formData);
    }
 
-   const generateUniqueId = () => {
-      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      const randomAlphabet =
-         alphabet[Math.floor(Math.random() * alphabet.length)] +
-         alphabet[Math.floor(Math.random() * alphabet.length)];
-      const randomNumber = Math.floor(1000 + Math.random() * 9000); // ensures a 4-digit number
-      return `${randomAlphabet}${randomNumber}`;
-   };
-
-   function onSaveAsDraft() {
+   function saveChanges() {
       const draftData = getValues();
       const updatedItems = draftData.items.map((item) => ({
          ...item,
@@ -69,38 +56,15 @@ export default function EditInvoice({ onSuccess, closeModal, invoice }) {
       }));
 
       const totalSum = updatedItems.reduce((sum, item) => sum + item.total, 0);
-
       const newInvoice = {
-         id: generateUniqueId(),
-         status: 'Draft',
+         id: invoice?.id, // Assuming you are editing an existing invoice
+         status: invoice?.status,
          ...draftData,
          items: updatedItems,
          totalSum,
       };
 
-      dispatch(addInvoiceToList(newInvoice));
-      onSuccess(true);
-      console.log(draftData, invoiceList);
-   }
-
-   function saveAndSend() {
-      const draftData = getValues();
-      const updatedItems = draftData.items.map((item) => ({
-         ...item,
-         total: item.quantity * item.price,
-      }));
-
-      const totalSum = updatedItems.reduce((sum, item) => sum + item.total, 0);
-
-      const newInvoice = {
-         id: generateUniqueId(),
-         status: 'Pending',
-         ...draftData,
-         items: updatedItems,
-         totalSum,
-      };
-
-      dispatch(addInvoiceToList(newInvoice));
+      dispatch(editAndSaveInvoice(newInvoice));
       onSuccess(true);
    }
 
@@ -282,25 +246,13 @@ export default function EditInvoice({ onSuccess, closeModal, invoice }) {
                   >
                      Cancel
                   </button>
-                  {/* <div className="flex gap-2 "> */}
                   <button
                      className="text-white bg-blue"
                      type="button"
-                     onClick={onSaveAsDraft}
+                     onClick={saveChanges}
                   >
                      Save Changes
                   </button>
-
-                  {/* <button
-                        className={`${isValid && items.length !== 0 && areItemsValid ? 'bg-blue' : 'bg-gray-200 text-gray-400'}`}
-                        disabled={
-                           !isValid || items.length === 0 || !areItemsValid
-                        }
-                        onClick={saveAndSend}
-                     >
-                        <span>Save & Send</span>
-                     </button>
-                  </div> */}
                </div>
             </div>
          </form>

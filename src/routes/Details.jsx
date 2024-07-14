@@ -143,6 +143,9 @@ export default function Details() {
                closeModal={() => {
                   setShowEditInvoice(false);
                }}
+               onSuccess={() => {
+                  setShowEditInvoice(false);
+               }}
                invoice={invoice}
             />
          )}

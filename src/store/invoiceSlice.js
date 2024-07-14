@@ -22,9 +22,27 @@ export const invoiceSlice = createSlice({
             invoice.status = 'Paid';
          } else return;
       },
+      editAndSaveInvoice: (state, action) => {
+         // const invoiceToBeEdited = action.payload;
+         // const invoice = state.invoiceList.find((item) => item.id === invoiceToBeEdited.id);
+         // if (invoice) {
+         //    invoice = invoiceToBeEdited
+         // } else return;
+         const invoiceToBeEdited = action.payload;
+         const invoiceIndex = state.invoiceList.findIndex(
+            (item) => item.id === invoiceToBeEdited.id,
+         );
+         if (invoiceIndex !== -1) {
+            state.invoiceList[invoiceIndex] = invoiceToBeEdited;
+         }
+      },
    },
 });
-export const { addInvoiceToList, deleteInvoice, markInvoiceAsPaid } =
-   invoiceSlice.actions;
+export const {
+   addInvoiceToList,
+   deleteInvoice,
+   markInvoiceAsPaid,
+   editAndSaveInvoice,
+} = invoiceSlice.actions;
 
 export default invoiceSlice.reducer;
