@@ -39,6 +39,9 @@ export default function Home() {
                onSuccess={() => {
                   setShowForm(false);
                }}
+               closeModal={() => {
+                  setShowForm(false);
+               }}
             />
          )}
       </PageLayout>

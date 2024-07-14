@@ -12,7 +12,7 @@ input[type='number'] {
 
 .input {
    border: 1px solid var(--black-2);
-   @apply pl-5 h-12 outline-0 bold-15 mt-2 rounded bg-black w-full;
+   @apply pl-5 h-12 outline-0 bold-15 mt-2 rounded bg-black w-full text-white;
 }
 
 .label,

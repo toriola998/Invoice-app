@@ -7,7 +7,7 @@ import InputField from './shared/InputField';
 import SelectDropdown from './shared/SelectDropdown';
 import schemas from '../schema/index';
 
-export default function CreateInvoice({ onSuccess, closeModal }) {
+export default function EditInvoice({ onSuccess, closeModal, invoice }) {
    const invoiceList = useSelector((state) => state.invoice.invoiceList);
    const dispatch = useDispatch();
 
@@ -20,6 +20,22 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
       formState: { errors, isValid },
    } = useForm({
       resolver: yupResolver(schemas.invoiceSchema),
+      defaultValues: {
+         items: invoice?.items || [],
+         // streetAddress: invoice?.streetAddress || '',
+         // city: invoice?.city || '',
+         // postCode: invoice?.postCode || '',
+         // country: invoice?.country || '',
+         // clientName: invoice?.clientName || '',
+         // clientEmail: invoice?.clientEmail || '',
+         // clientStreetAddress: invoice?.clientStreetAddress || '',
+         // clientCity: invoice?.clientCity || '',
+         // clientPostCode: invoice?.clientPostCode || '',
+         // clientCountry: invoice?.clientCountry || '',
+         // invoiceDate: invoice?.invoiceDate || '',
+         // paymentTerms: invoice?.paymentTerms || { value: '', label: '' },
+         // projectDescription: invoice?.projectDescription || '',
+      },
    });
 
    const { fields, append, remove } = useFieldArray({
@@ -98,7 +114,11 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
    return (
       <InvoiceLayout>
          <form onSubmit={handleSubmit(onSubmit)}>
-            <p className="font-bold text-2xl">New Invoice</p>
+            <p className="font-bold text-2xl text-white">
+               Edit
+               <span className="text-grey-1 pl-2">#</span>
+               {invoice?.id}
+            </p>
             <div className="mb-9">
                <p className="invoice-title">Bill From</p>
 
@@ -107,22 +127,26 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
                      label="Street Address"
                      fieldName={register('streetAddress')}
                      errorMessage={errors.streetAddress?.message}
+                     defaultValue={invoice?.streetAddress}
                   />
                   <InputField
                      label="City"
                      fieldName={register('city')}
                      errorMessage={errors.city?.message}
+                     defaultValue={invoice?.city}
                   />
                   <InputField
                      type="number"
                      label="Post Code"
                      fieldName={register('postCode')}
                      errorMessage={errors.postCode?.message}
+                     defaultValue={invoice?.postCode}
                   />
                   <InputField
                      label="Country"
                      fieldName={register('country')}
                      errorMessage={errors.country?.message}
+                     defaultValue={invoice?.country}
                   />
                </div>
 
@@ -132,47 +156,54 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
                      label="Client's Name"
                      fieldName={register('clientName')}
                      errorMessage={errors.clientName?.message}
+                     defaultValue={invoice?.clientName}
                   />
                   <InputField
                      label="Client Email"
                      fieldName={register('clientEmail')}
                      errorMessage={errors.clientEmail?.message}
+                     defaultValue={invoice?.clientEmail}
                   />
                   <InputField
                      label="Street Address"
                      fieldName={register('clientStreetAddress')}
                      errorMessage={errors.clientStreetAddress?.message}
+                     defaultValue={invoice?.clientStreetAddress}
                   />
                   <InputField
                      label="City"
                      fieldName={register('clientCity')}
                      errorMessage={errors.clientCity?.message}
+                     defaultValue={invoice?.clientCity}
                   />
                   <InputField
                      type="number"
                      label=" Post Code"
                      fieldName={register('clientPostCode')}
                      errorMessage={errors.clientPostCode?.message}
+                     defaultValue={invoice?.clientPostCode}
                   />
                   <InputField
                      label="Country"
                      fieldName={register('clientCountry')}
                      errorMessage={errors.clientCountry?.message}
+                     defaultValue={invoice?.clientCountry}
                   />
                   <InputField
                      label="Invoice date"
                      type="date"
                      fieldName={register('invoiceDate')}
                      errorMessage={errors.invoiceDate?.message}
+                     defaultValue={invoice?.invoiceDate}
                   />
 
                   <Controller
                      name="paymentTerms"
                      control={control}
-                     // defaultValue={{
-                     //    label: modeOfDelivery,
-                     //    value: modeOfDelivery,
-                     // }}
+                     defaultValue={{
+                        label: invoice?.paymentTerms?.label,
+                        value: invoice?.paymentTerms?.value,
+                     }}
                      render={({ field }) => (
                         <SelectDropdown
                            label="Payment Terms"
@@ -189,6 +220,7 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
                      label="Project Description"
                      fieldName={register('projectDescription')}
                      errorMessage={errors.projectDescription?.message}
+                     defaultValue={invoice?.projectDescription}
                   />
                </div>
             </div>
@@ -208,19 +240,22 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
                   <InputField
                      fieldName={register(`items.${index}.itemName`)}
                      errorMessage={errors.items?.[index]?.itemName}
+                     defaultValue={invoice?.items?.[index]?.itemName}
                   />
 
                   <InputField
                      fieldName={register(`items.${index}.quantity`)}
                      errorMessage={errors.items?.[index]?.quantity}
+                     defaultValue={invoice?.items?.[index]?.quantity}
                      type="number"
                   />
                   <InputField
                      fieldName={register(`items.${index}.price`)}
                      errorMessage={errors.items?.[index]?.price}
+                     defaultValue={invoice?.items?.[index]?.price}
                      type="number"
                   />
-                  <p>
+                  <p className="text-white">
                      {items?.[index]?.quantity && items?.[index]?.price
                         ? items[index].quantity * items[index].price
                         : 0}
@@ -239,24 +274,24 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
             </button>
 
             <div className="bottom-btns">
-               <div className="flex justify-between control-btn">
+               <div className="flex justify-end control-btn gap-2">
                   <button
                      className="bg-black-2 text-grey-5"
                      type="button"
                      onClick={closeModal}
                   >
-                     Discard
+                     Cancel
                   </button>
-                  <div className="flex gap-2 ">
-                     <button
-                        className="text-grey bg-black-6"
-                        type="button"
-                        onClick={onSaveAsDraft}
-                     >
-                        Save as Draft
-                     </button>
+                  {/* <div className="flex gap-2 "> */}
+                  <button
+                     className="text-white bg-blue"
+                     type="button"
+                     onClick={onSaveAsDraft}
+                  >
+                     Save Changes
+                  </button>
 
-                     <button
+                  {/* <button
                         className={`${isValid && items.length !== 0 && areItemsValid ? 'bg-blue' : 'bg-gray-200 text-gray-400'}`}
                         disabled={
                            !isValid || items.length === 0 || !areItemsValid
@@ -265,7 +300,7 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
                      >
                         <span>Save & Send</span>
                      </button>
-                  </div>
+                  </div> */}
                </div>
             </div>
          </form>

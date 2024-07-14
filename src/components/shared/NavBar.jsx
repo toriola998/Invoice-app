@@ -1,6 +1,6 @@
 function NavBar() {
    return (
-      <nav className="bg-black flex lg:flex-col justify-between pr-6 lg:pr-0 lg:pb-6 lg:min-h-screen z-40 relative">
+      <nav className="bg-black flex lg:flex-col justify-between pr-6 lg:pr-0 lg:pb-6 lg:h-screen z-40 fixed">
          <a>
             <img
                src="../../assets/icons/logo.svg"

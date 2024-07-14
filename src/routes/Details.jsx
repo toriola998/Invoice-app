@@ -8,12 +8,14 @@ import GoBack from '../components/shared/GoBack';
 import DeleteModal from '../components/shared/DeleteModal';
 import DATE from '../utils/date';
 import InvoiceStatus from '../components/shared/InvoiceStatus';
+import EditInvoice from '../components/EditInvoice';
 
 export default function Details() {
    const { id } = useParams();
    const dispatch = useDispatch();
    const invoiceList = useSelector((state) => state.invoice.invoiceList);
    const [showDeleteModal, setShowDeleteModal] = useState(false);
+   const [showEditInvoice, setShowEditInvoice] = useState(false);
    const navigate = useNavigate();
    const invoice = invoiceList.find((item) => item.id === id);
    console.log(invoice, 'my need');
@@ -99,7 +101,14 @@ export default function Details() {
 
                <div className="px-6 py-[22px] bg-black md:bg-transparent md:absolute top-[5.5rem] md:right-12 lg:right-0">
                   <div className="flex justify-center gap-2 control-links">
-                     <button className="bg-black-2 text-grey">Edit</button>
+                     <button
+                        className="bg-black-2 text-grey"
+                        onClick={() => {
+                           setShowEditInvoice(true);
+                        }}
+                     >
+                        Edit
+                     </button>
                      <button
                         className="bg-orange"
                         onClick={() => {
@@ -127,6 +136,14 @@ export default function Details() {
                }}
                invoiceId={invoice?.id}
                deleteInvoice={delete_Invoice}
+            />
+         )}
+         {showEditInvoice && (
+            <EditInvoice
+               closeModal={() => {
+                  setShowEditInvoice(false);
+               }}
+               invoice={invoice}
             />
          )}
       </>
