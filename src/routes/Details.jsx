@@ -102,16 +102,16 @@ export default function Details() {
 
                <div className="px-6 py-[22px] bg-black md:bg-transparent md:absolute top-[5.5rem] md:right-12 lg:right-0">
                   <div className="flex justify-center gap-2 control-links">
-                     <a className="bg-black-2 text-grey">Edit</a>
-                     <a
+                     <button className="bg-black-2 text-grey">Edit</button>
+                     <button
                         className="bg-orange"
                         onClick={() => {
                            setShowDeleteModal(true);
                         }}
                      >
                         Delete
-                     </a>
-                     <a className="bg-blue">Mark as Paid</a>
+                     </button>
+                     <button className="bg-blue">Mark as Paid</button>
                   </div>
                </div>
             </div>

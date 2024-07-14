@@ -6,10 +6,6 @@
    border-right: 1px solid #494e6e;
 }
 
-.flex-center {
-   @apply flex items-center;
-}
-
 .flex-justify-center {
    @apply flex items-center justify-center;
 }
@@ -45,7 +41,7 @@
    @apply bold-15;
 }
 
-.control-links a,
+.control-links button,
 .control-btn button {
    @apply flex justify-center items-center h-10 rounded-[24px] px-6 bold-15;
 }
@@ -54,10 +50,6 @@
    background: rgba(0, 0, 0, 0.5);
    @apply fixed top-0 bottom-0 left-0 right-0 z-30 w-full flex-justify-center;
 }
-
-// .home-container {
-//    @apply ;
-// }
 
 @media only screen and (min-width: 1024px) {
    .toggle-btn {
@@ -103,7 +95,7 @@ button {
    @apply bg-black rounded-lg px-6 py-7 mt-8 md:flex justify-between relative cursor-pointer;
 
    &:hover {
-      border: 2px solid var(--blue);
+      outline: 2px solid var(--blue);
    }
 }
 

@@ -32,17 +32,6 @@ export default function CreateInvoice({ onSuccess }) {
       console.log(formData);
    }
 
-   //    function onSubmit(formData) {
-   //     const updatedItems = formData.items.map(item => ({
-   //        ...item,
-   //        total: item.quantity * item.price,
-   //     }));
-
-   //     const totalSum = updatedItems.reduce((sum, item) => sum + item.total, 0);
-
-   //     console.log({ ...formData, items: updatedItems, totalSum });
-   //  }
-
    const generateUniqueId = () => {
       const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       const randomAlphabet =
@@ -69,12 +58,6 @@ export default function CreateInvoice({ onSuccess }) {
          totalSum,
       };
 
-      //   const draftData = getValues();
-      //   const newInvoice = {
-      //      id: generateUniqueId(),
-      //      status: 'Pending',
-      //      ...draftData,
-      //   };
       dispatch(addInvoiceToList(newInvoice));
       onSuccess(true);
       console.log(draftData, invoiceList);
