@@ -21,14 +21,15 @@
 }
 
 .status {
-   @apply bg-light-green w-[104px] h-10 rounded-md flex-justify-center;
+   @apply w-[104px] h-10 rounded-md flex-justify-center;
 
    span {
       @apply flex-justify-center gap-2;
 
       &::before {
          content: '';
-         @apply flex rounded-full h-2 w-2 bg-[#33D69F];
+         @apply flex rounded-full h-2 w-2;
+         background-color: var(--indicator-color);
       }
    }
 }
@@ -92,7 +93,7 @@ button {
 }
 
 .invoice-wrap {
-   @apply bg-black rounded-lg px-6 py-7 mt-8 md:flex justify-between relative cursor-pointer;
+   @apply bg-black rounded-lg px-6 py-7 mt-7 md:flex justify-between relative cursor-pointer;
 
    &:hover {
       outline: 2px solid var(--blue);

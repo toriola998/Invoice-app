@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import InvoiceStatus from '../shared/InvoiceStatus';
 
 function Invoice({ id, name, date, price, status, link }) {
    return (
@@ -20,9 +21,7 @@ function Invoice({ id, name, date, price, status, link }) {
                </p>
                <p className="bold-15">£ {price}</p>
             </div>
-            <div className="status">
-               <span className="text-green bold-15">{status}</span>
-            </div>
+            <InvoiceStatus status={status} />
          </div>
 
          <img

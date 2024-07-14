@@ -7,6 +7,7 @@ import OrderSummary from '../components/OrderSummary';
 import GoBack from '../components/shared/GoBack';
 import DeleteModal from '../components/shared/DeleteModal';
 import DATE from '../utils/date';
+import InvoiceStatus from '../components/shared/InvoiceStatus';
 
 export default function Details() {
    const { id } = useParams();
@@ -28,11 +29,7 @@ export default function Details() {
                <GoBack />
                <div className="flex-center justify-between rounded-lg p-6 bg-black md:justify-start md:gap-5">
                   <p className="medium-13">Status</p>
-                  <div className="status">
-                     <span className="text-green bold-15">
-                        {invoice?.status}
-                     </span>
-                  </div>
+                  <InvoiceStatus status={invoice?.status} />
                </div>
 
                <div className="my-4 rounded-lg p-6 bg-black">

@@ -52,7 +52,7 @@ export default function CreateInvoice({ onSuccess }) {
 
       const newInvoice = {
          id: generateUniqueId(),
-         status: 'Pending',
+         status: 'Draft',
          ...draftData,
          items: updatedItems,
          totalSum,
