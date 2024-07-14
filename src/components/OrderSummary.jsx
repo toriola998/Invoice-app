@@ -12,7 +12,7 @@ function OrderSummary({ itemsList = [], total }) {
                            {item?.quantity} x £ {item?.price}
                         </p>
                      </div>
-                     <p>{item?.total}</p>
+                     <p>£ {item?.total}</p>
                   </div>
                ))}
             </div>
@@ -34,8 +34,10 @@ function OrderSummary({ itemsList = [], total }) {
                         <td className="text-grey text-center">
                            {item?.quantity}
                         </td>
-                        <td className="text-grey text-right">{item?.price}</td>
-                        <td className="text-right">{item?.total}</td>
+                        <td className="text-grey text-right">
+                           £ {item?.price}
+                        </td>
+                        <td className="text-right">£ {item?.total}</td>
                      </tr>
                   ))}
                </tbody>
@@ -44,7 +46,7 @@ function OrderSummary({ itemsList = [], total }) {
 
          <div className="bg-black-3 flex-center p-6 justify-between rounded-b-lg md:px-8">
             <p className="medium-13 text-white">Amount Due</p>
-            <p className="font-bold text-2xl">{total}</p>
+            <p className="font-bold text-2xl">£ {total}</p>
          </div>
       </>
    );

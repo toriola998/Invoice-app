@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteInvoice } from '../store/invoiceSlice';
+import { deleteInvoice, markInvoiceAsPaid } from '../store/invoiceSlice';
 import PageLayout from '../components/layout/PageLayout';
 import OrderSummary from '../components/OrderSummary';
 import GoBack from '../components/shared/GoBack';
@@ -30,7 +30,7 @@ export default function Details() {
                   <p className="medium-13">Status</p>
                   <div className="status">
                      <span className="text-green bold-15">
-                        {invoice.status}
+                        {invoice?.status}
                      </span>
                   </div>
                </div>
@@ -40,18 +40,18 @@ export default function Details() {
                      <div>
                         <p className="bold-15">
                            <span className="text-grey-2">#</span>
-                           <span className="text-white">{invoice.id}</span>
+                           <span className="text-white">{invoice?.id}</span>
                         </p>
                         <p className="medium-13 md:mt-2"></p>
                      </div>
                      <p className="medium-13 leading-5 my-[31px] md:mt-0 md:text-right">
-                        <span>{invoice.authorAddress}</span>
+                        <span>{invoice?.authorAddress}</span>
                         <br />
-                        <span>{invoice.authorCity}</span>
+                        <span>{invoice?.authorCity}</span>
                         <br />
-                        <span>{invoice.authorPostCode}</span>
+                        <span>{invoice?.authorPostCode}</span>
                         <br />
-                        <span>{invoice.authorCountry}</span>
+                        <span>{invoice?.authorCountry}</span>
                      </p>
                   </div>
 
@@ -60,13 +60,13 @@ export default function Details() {
                         <p>
                            <span>Invoice Date</span>
                            <br></br>
-                           <span>{DATE.formatDate(invoice.invoiceDate)}</span>
+                           <span>{DATE.formatDate(invoice?.invoiceDate)}</span>
                         </p>
 
                         <p>
                            <span>Bill To</span>
                            <br></br>
-                           <span>{invoice.clientName}</span>
+                           <span>{invoice?.clientName}</span>
                         </p>
                      </div>
 
@@ -77,25 +77,25 @@ export default function Details() {
                            <span>21 Aug 2021</span>
                         </p>
                         <p className="medium-13 leading-5 address mt-2">
-                           <span>{invoice.clientAddress}</span>
+                           <span>{invoice?.clientAddress}</span>
                            <br />
-                           <span>{invoice.clientCity}</span>
+                           <span>{invoice?.clientCity}</span>
                            <br />
-                           <span>{invoice.clientPostCode}</span>
+                           <span>{invoice?.clientPostCode}</span>
                            <br />
-                           <span>{invoice.clientCountry}</span>
+                           <span>{invoice?.clientCountry}</span>
                         </p>
                      </div>
                      <p className="mb-[35px] mt-[38px] md:my-0 md:absolute top-0 right-16 lg:right-36">
                         <span>Sent to</span>
                         <br></br>
-                        <span>{invoice.projectDescription}</span>
+                        <span>{invoice?.projectDescription}</span>
                      </p>
                   </div>
                   {invoice?.items.length !== 0 && (
                      <OrderSummary
-                        totalSum={invoice.totalSum}
-                        itemsList={invoice.items}
+                        total={invoice?.totalSum}
+                        itemsList={invoice?.items}
                      />
                   )}
                </div>
@@ -111,7 +111,14 @@ export default function Details() {
                      >
                         Delete
                      </button>
-                     <button className="bg-blue">Mark as Paid</button>
+                     <button
+                        className="bg-blue"
+                        onClick={() => {
+                           dispatch(markInvoiceAsPaid(invoice?.id));
+                        }}
+                     >
+                        Mark as Paid
+                     </button>
                   </div>
                </div>
             </div>
@@ -121,7 +128,7 @@ export default function Details() {
                closeModal={() => {
                   setShowDeleteModal(false);
                }}
-               invoiceId={invoice.id}
+               invoiceId={invoice?.id}
                deleteInvoice={delete_Invoice}
             />
          )}
