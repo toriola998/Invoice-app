@@ -28,6 +28,10 @@ export default function CreateInvoice({ onSuccess }) {
    });
    const items = watch('items');
 
+   const areItemsValid = items?.every(
+      (item) => item.itemName && item.quantity && item.price,
+   );
+
    function onSubmit(formData) {
       console.log(formData);
    }
@@ -61,6 +65,27 @@ export default function CreateInvoice({ onSuccess }) {
       dispatch(addInvoiceToList(newInvoice));
       onSuccess(true);
       console.log(draftData, invoiceList);
+   }
+
+   function saveAndSend() {
+      const draftData = getValues();
+      const updatedItems = draftData.items.map((item) => ({
+         ...item,
+         total: item.quantity * item.price,
+      }));
+
+      const totalSum = updatedItems.reduce((sum, item) => sum + item.total, 0);
+
+      const newInvoice = {
+         id: generateUniqueId(),
+         status: 'Pending',
+         ...draftData,
+         items: updatedItems,
+         totalSum,
+      };
+
+      dispatch(addInvoiceToList(newInvoice));
+      onSuccess(true);
    }
 
    const paymentTermOptions = [
@@ -228,8 +253,11 @@ export default function CreateInvoice({ onSuccess }) {
                      </button>
 
                      <button
-                        className={` ${isValid ? 'bg-blue' : 'bg-gray-200 text-gray-400'}`}
-                        disabled={isValid}
+                        className={`${isValid && items.length !== 0 && areItemsValid ? 'bg-blue' : 'bg-gray-200 text-gray-400'}`}
+                        disabled={
+                           !isValid || items.length === 0 || !areItemsValid
+                        }
+                        onClick={saveAndSend}
                      >
                         <span>Save & Send</span>
                      </button>

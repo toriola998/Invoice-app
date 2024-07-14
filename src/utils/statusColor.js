@@ -10,11 +10,11 @@ export const getStatusStyles = (status) => {
             container: { backgroundColor: '#FF8F000f', color: '#FF8F00' }, // example light red
             indicator: '#FF8F00',
          };
-         case 'Draft':
-            return {
-               container: { backgroundColor: '#DFE3FA0f', color: '#DFE3FA' }, // example light red
-               indicator: '#DFE3FA',
-            };
+      case 'Draft':
+         return {
+            container: { backgroundColor: '#DFE3FA0f', color: '#DFE3FA' }, // example light red
+            indicator: '#DFE3FA',
+         };
       // Add more cases for different statuses
       default:
          return {
