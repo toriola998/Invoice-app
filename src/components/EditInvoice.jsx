@@ -46,9 +46,9 @@ export default function EditInvoice({ onSuccess, closeModal, invoice }) {
    });
    const items = watch('items');
 
-   function onSubmit(formData) {
-      console.log(formData);
-   }
+   // function onSubmit(formData) {
+   //    console.log(formData);
+   // }
 
    function saveChanges() {
       const draftData = getValues();

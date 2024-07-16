@@ -34,9 +34,9 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
       (item) => item.itemName && item.quantity && item.price,
    );
 
-   function onSubmit(formData) {
-      console.log(formData);
-   }
+   // function onSubmit(formData) {
+   //    console.log(formData);
+   // }
 
    const generateUniqueId = () => {
       const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -69,7 +69,6 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
       };
       dispatch(addInvoiceToList(newInvoice));
       onSuccess(true);
-      console.log(draftData, invoiceList);
    }
 
    function saveAndSend() {
