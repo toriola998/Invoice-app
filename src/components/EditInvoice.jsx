@@ -78,166 +78,170 @@ export default function EditInvoice({ onSuccess, closeModal, invoice }) {
    return (
       <InvoiceLayout>
          <form onSubmit={handleSubmit(onSubmit)}>
-            <p className="font-bold text-2xl text-white">
-               Edit
-               <span className="text-grey-1 pl-2">#</span>
-               {invoice?.id}
-            </p>
-            <div className="mb-9">
-               <p className="invoice-title">Bill From</p>
+            <div className="px-6 md:px-0 md:mx-14">
+               <p className="font-bold text-2xl text-white">
+                  Edit
+                  <span className="text-grey-1 pl-2">#</span>
+                  {invoice?.id}
+               </p>
+               <div className="mb-9">
+                  <p className="invoice-title">Bill From</p>
 
-               <div className="grid gap-4 bills-from">
-                  <InputField
-                     label="Street Address"
-                     fieldName={register('streetAddress')}
-                     errorMessage={errors.streetAddress?.message}
-                     defaultValue={invoice?.streetAddress}
-                  />
-                  <InputField
-                     label="City"
-                     fieldName={register('city')}
-                     errorMessage={errors.city?.message}
-                     defaultValue={invoice?.city}
-                  />
-                  <InputField
-                     type="number"
-                     label="Post Code"
-                     fieldName={register('postCode')}
-                     errorMessage={errors.postCode?.message}
-                     defaultValue={invoice?.postCode}
-                  />
-                  <InputField
-                     label="Country"
-                     fieldName={register('country')}
-                     errorMessage={errors.country?.message}
-                     defaultValue={invoice?.country}
-                  />
+                  <div className="grid gap-4 bills-from">
+                     <InputField
+                        label="Street Address"
+                        fieldName={register('streetAddress')}
+                        errorMessage={errors.streetAddress?.message}
+                        defaultValue={invoice?.streetAddress}
+                     />
+                     <InputField
+                        label="City"
+                        fieldName={register('city')}
+                        errorMessage={errors.city?.message}
+                        defaultValue={invoice?.city}
+                     />
+                     <InputField
+                        type="number"
+                        label="Post Code"
+                        fieldName={register('postCode')}
+                        errorMessage={errors.postCode?.message}
+                        defaultValue={invoice?.postCode}
+                     />
+                     <InputField
+                        label="Country"
+                        fieldName={register('country')}
+                        errorMessage={errors.country?.message}
+                        defaultValue={invoice?.country}
+                     />
+                  </div>
+
+                  <p className="invoice-title">Bill To</p>
+                  <div className="grid gap-4 bills-to">
+                     <InputField
+                        label="Client's Name"
+                        fieldName={register('clientName')}
+                        errorMessage={errors.clientName?.message}
+                        defaultValue={invoice?.clientName}
+                     />
+                     <InputField
+                        label="Client Email"
+                        fieldName={register('clientEmail')}
+                        errorMessage={errors.clientEmail?.message}
+                        defaultValue={invoice?.clientEmail}
+                     />
+                     <InputField
+                        label="Street Address"
+                        fieldName={register('clientStreetAddress')}
+                        errorMessage={errors.clientStreetAddress?.message}
+                        defaultValue={invoice?.clientStreetAddress}
+                     />
+                     <InputField
+                        label="City"
+                        fieldName={register('clientCity')}
+                        errorMessage={errors.clientCity?.message}
+                        defaultValue={invoice?.clientCity}
+                     />
+                     <InputField
+                        type="number"
+                        label=" Post Code"
+                        fieldName={register('clientPostCode')}
+                        errorMessage={errors.clientPostCode?.message}
+                        defaultValue={invoice?.clientPostCode}
+                     />
+                     <InputField
+                        label="Country"
+                        fieldName={register('clientCountry')}
+                        errorMessage={errors.clientCountry?.message}
+                        defaultValue={invoice?.clientCountry}
+                     />
+                     <InputField
+                        label="Invoice date"
+                        type="date"
+                        fieldName={register('invoiceDate')}
+                        errorMessage={errors.invoiceDate?.message}
+                        defaultValue={invoice?.invoiceDate}
+                     />
+
+                     <Controller
+                        name="paymentTerms"
+                        control={control}
+                        defaultValue={{
+                           label: invoice?.paymentTerms?.label,
+                           value: invoice?.paymentTerms?.value,
+                        }}
+                        render={({ field }) => (
+                           <SelectDropdown
+                              label="Payment Terms"
+                              options={paymentTermOptions}
+                              field={field}
+                              errorMessage={errors?.paymentTerms?.message}
+                              onChange={(selectedOption) =>
+                                 field.onChange(selectedOption)
+                              }
+                           />
+                        )}
+                     />
+                     <InputField
+                        label="Project Description"
+                        fieldName={register('projectDescription')}
+                        errorMessage={errors.projectDescription?.message}
+                        defaultValue={invoice?.projectDescription}
+                     />
+                  </div>
                </div>
 
-               <p className="invoice-title">Bill To</p>
-               <div className="grid gap-4 bills-to">
-                  <InputField
-                     label="Client's Name"
-                     fieldName={register('clientName')}
-                     errorMessage={errors.clientName?.message}
-                     defaultValue={invoice?.clientName}
-                  />
-                  <InputField
-                     label="Client Email"
-                     fieldName={register('clientEmail')}
-                     errorMessage={errors.clientEmail?.message}
-                     defaultValue={invoice?.clientEmail}
-                  />
-                  <InputField
-                     label="Street Address"
-                     fieldName={register('clientStreetAddress')}
-                     errorMessage={errors.clientStreetAddress?.message}
-                     defaultValue={invoice?.clientStreetAddress}
-                  />
-                  <InputField
-                     label="City"
-                     fieldName={register('clientCity')}
-                     errorMessage={errors.clientCity?.message}
-                     defaultValue={invoice?.clientCity}
-                  />
-                  <InputField
-                     type="number"
-                     label=" Post Code"
-                     fieldName={register('clientPostCode')}
-                     errorMessage={errors.clientPostCode?.message}
-                     defaultValue={invoice?.clientPostCode}
-                  />
-                  <InputField
-                     label="Country"
-                     fieldName={register('clientCountry')}
-                     errorMessage={errors.clientCountry?.message}
-                     defaultValue={invoice?.clientCountry}
-                  />
-                  <InputField
-                     label="Invoice date"
-                     type="date"
-                     fieldName={register('invoiceDate')}
-                     errorMessage={errors.invoiceDate?.message}
-                     defaultValue={invoice?.invoiceDate}
-                  />
-
-                  <Controller
-                     name="paymentTerms"
-                     control={control}
-                     defaultValue={{
-                        label: invoice?.paymentTerms?.label,
-                        value: invoice?.paymentTerms?.value,
-                     }}
-                     render={({ field }) => (
-                        <SelectDropdown
-                           label="Payment Terms"
-                           options={paymentTermOptions}
-                           field={field}
-                           errorMessage={errors?.paymentTerms?.message}
-                           onChange={(selectedOption) =>
-                              field.onChange(selectedOption)
-                           }
-                        />
-                     )}
-                  />
-                  <InputField
-                     label="Project Description"
-                     fieldName={register('projectDescription')}
-                     errorMessage={errors.projectDescription?.message}
-                     defaultValue={invoice?.projectDescription}
-                  />
+               <div className="flex justify-around group-input-labels">
+                  <p className="w-[150px]">Item Name</p>
+                  <p>Qty.</p>
+                  <p>Price</p>
+                  <p>Total</p>
+                  <p></p>
                </div>
-            </div>
+               {fields.map((field, index) => (
+                  <div
+                     key={field.id}
+                     className="group-inputs grid gap-x-5 items-center"
+                  >
+                     <InputField
+                        fieldName={register(`items.${index}.itemName`)}
+                        errorMessage={errors.items?.[index]?.itemName}
+                        defaultValue={invoice?.items?.[index]?.itemName}
+                     />
 
-            <div className="flex justify-around group-input-labels">
-               <p className="w-[150px]">Item Name</p>
-               <p>Qty.</p>
-               <p>Price</p>
-               <p>Total</p>
-               <p></p>
-            </div>
-            {fields.map((field, index) => (
-               <div
-                  key={field.id}
-                  className="group-inputs grid gap-x-5 items-center"
+                     <InputField
+                        fieldName={register(`items.${index}.quantity`)}
+                        errorMessage={errors.items?.[index]?.quantity}
+                        defaultValue={invoice?.items?.[index]?.quantity}
+                        type="number"
+                     />
+                     <InputField
+                        fieldName={register(`items.${index}.price`)}
+                        errorMessage={errors.items?.[index]?.price}
+                        defaultValue={invoice?.items?.[index]?.price}
+                        type="number"
+                     />
+                     <p className="text-white">
+                        {items?.[index]?.quantity && items?.[index]?.price
+                           ? items[index].quantity * items[index].price
+                           : 0}
+                     </p>
+                     <button type="button" onClick={() => remove(index)}>
+                        <img src="../assets/icons/icon-delete.png" alt="" />
+                     </button>
+                  </div>
+               ))}
+               <button
+                  type="button"
+                  onClick={() =>
+                     append({ itemName: '', quantity: '', price: '' })
+                  }
+                  className="bg-black-2 rounded-full font-bold w-full text-grey py-3 mt-5"
                >
-                  <InputField
-                     fieldName={register(`items.${index}.itemName`)}
-                     errorMessage={errors.items?.[index]?.itemName}
-                     defaultValue={invoice?.items?.[index]?.itemName}
-                  />
+                  + Add New Item
+               </button>
+            </div>
 
-                  <InputField
-                     fieldName={register(`items.${index}.quantity`)}
-                     errorMessage={errors.items?.[index]?.quantity}
-                     defaultValue={invoice?.items?.[index]?.quantity}
-                     type="number"
-                  />
-                  <InputField
-                     fieldName={register(`items.${index}.price`)}
-                     errorMessage={errors.items?.[index]?.price}
-                     defaultValue={invoice?.items?.[index]?.price}
-                     type="number"
-                  />
-                  <p className="text-white">
-                     {items?.[index]?.quantity && items?.[index]?.price
-                        ? items[index].quantity * items[index].price
-                        : 0}
-                  </p>
-                  <button type="button" onClick={() => remove(index)}>
-                     <img src="../assets/icons/icon-delete.png" alt="" />
-                  </button>
-               </div>
-            ))}
-            <button
-               type="button"
-               onClick={() => append({ itemName: '', quantity: '', price: '' })}
-               className="bg-black-2 rounded-full font-bold w-full text-grey py-3 mt-5"
-            >
-               + Add New Item
-            </button>
-
-            <div className="bottom-btns">
+            <div className="bottom-btns md:px-14">
                <div className="flex justify-end control-btn gap-2">
                   <button
                      className="bg-black-2 text-grey-5"

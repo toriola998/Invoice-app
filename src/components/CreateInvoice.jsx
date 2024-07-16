@@ -98,150 +98,154 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
    return (
       <InvoiceLayout>
          <form onSubmit={handleSubmit(onSubmit)}>
-            <p className="font-bold text-2xl">New Invoice</p>
-            <div className="mb-9">
-               <p className="invoice-title">Bill From</p>
+            <div className="px-6 md:px-0 md:mx-14">
+               <p className="font-bold text-2xl">New Invoice</p>
+               <div className="mb-9">
+                  <p className="invoice-title">Bill From</p>
 
-               <div className="grid gap-4 bills-from">
-                  <InputField
-                     label="Street Address"
-                     fieldName={register('streetAddress')}
-                     errorMessage={errors.streetAddress?.message}
-                  />
-                  <InputField
-                     label="City"
-                     fieldName={register('city')}
-                     errorMessage={errors.city?.message}
-                  />
-                  <InputField
-                     type="number"
-                     label="Post Code"
-                     fieldName={register('postCode')}
-                     errorMessage={errors.postCode?.message}
-                  />
-                  <InputField
-                     label="Country"
-                     fieldName={register('country')}
-                     errorMessage={errors.country?.message}
-                  />
+                  <div className="grid gap-4 bills-from">
+                     <InputField
+                        label="Street Address"
+                        fieldName={register('streetAddress')}
+                        errorMessage={errors.streetAddress?.message}
+                     />
+                     <InputField
+                        label="City"
+                        fieldName={register('city')}
+                        errorMessage={errors.city?.message}
+                     />
+                     <InputField
+                        type="number"
+                        label="Post Code"
+                        fieldName={register('postCode')}
+                        errorMessage={errors.postCode?.message}
+                     />
+                     <InputField
+                        label="Country"
+                        fieldName={register('country')}
+                        errorMessage={errors.country?.message}
+                     />
+                  </div>
+
+                  <p className="invoice-title">Bill To</p>
+                  <div className="grid gap-4 bills-to">
+                     <InputField
+                        label="Client's Name"
+                        fieldName={register('clientName')}
+                        errorMessage={errors.clientName?.message}
+                     />
+                     <InputField
+                        label="Client Email"
+                        fieldName={register('clientEmail')}
+                        errorMessage={errors.clientEmail?.message}
+                     />
+                     <InputField
+                        label="Street Address"
+                        fieldName={register('clientStreetAddress')}
+                        errorMessage={errors.clientStreetAddress?.message}
+                     />
+                     <InputField
+                        label="City"
+                        fieldName={register('clientCity')}
+                        errorMessage={errors.clientCity?.message}
+                     />
+                     <InputField
+                        type="number"
+                        label=" Post Code"
+                        fieldName={register('clientPostCode')}
+                        errorMessage={errors.clientPostCode?.message}
+                     />
+                     <InputField
+                        label="Country"
+                        fieldName={register('clientCountry')}
+                        errorMessage={errors.clientCountry?.message}
+                     />
+                     <InputField
+                        label="Invoice date"
+                        type="date"
+                        fieldName={register('invoiceDate')}
+                        errorMessage={errors.invoiceDate?.message}
+                     />
+
+                     <Controller
+                        name="paymentTerms"
+                        control={control}
+                        // defaultValue={{
+                        //    label: modeOfDelivery,
+                        //    value: modeOfDelivery,
+                        // }}
+                        render={({ field }) => (
+                           <SelectDropdown
+                              label="Payment Terms"
+                              options={paymentTermOptions}
+                              field={field}
+                              errorMessage={errors?.paymentTerms?.message}
+                              onChange={(selectedOption) =>
+                                 field.onChange(selectedOption)
+                              }
+                           />
+                        )}
+                     />
+                     <InputField
+                        label="Project Description"
+                        fieldName={register('projectDescription')}
+                        errorMessage={errors.projectDescription?.message}
+                     />
+                  </div>
                </div>
 
-               <p className="invoice-title">Bill To</p>
-               <div className="grid gap-4 bills-to">
-                  <InputField
-                     label="Client's Name"
-                     fieldName={register('clientName')}
-                     errorMessage={errors.clientName?.message}
-                  />
-                  <InputField
-                     label="Client Email"
-                     fieldName={register('clientEmail')}
-                     errorMessage={errors.clientEmail?.message}
-                  />
-                  <InputField
-                     label="Street Address"
-                     fieldName={register('clientStreetAddress')}
-                     errorMessage={errors.clientStreetAddress?.message}
-                  />
-                  <InputField
-                     label="City"
-                     fieldName={register('clientCity')}
-                     errorMessage={errors.clientCity?.message}
-                  />
-                  <InputField
-                     type="number"
-                     label=" Post Code"
-                     fieldName={register('clientPostCode')}
-                     errorMessage={errors.clientPostCode?.message}
-                  />
-                  <InputField
-                     label="Country"
-                     fieldName={register('clientCountry')}
-                     errorMessage={errors.clientCountry?.message}
-                  />
-                  <InputField
-                     label="Invoice date"
-                     type="date"
-                     fieldName={register('invoiceDate')}
-                     errorMessage={errors.invoiceDate?.message}
-                  />
-
-                  <Controller
-                     name="paymentTerms"
-                     control={control}
-                     // defaultValue={{
-                     //    label: modeOfDelivery,
-                     //    value: modeOfDelivery,
-                     // }}
-                     render={({ field }) => (
-                        <SelectDropdown
-                           label="Payment Terms"
-                           options={paymentTermOptions}
-                           field={field}
-                           errorMessage={errors?.paymentTerms?.message}
-                           onChange={(selectedOption) =>
-                              field.onChange(selectedOption)
-                           }
-                        />
-                     )}
-                  />
-                  <InputField
-                     label="Project Description"
-                     fieldName={register('projectDescription')}
-                     errorMessage={errors.projectDescription?.message}
-                  />
+               <div className="flex justify-around group-input-labels">
+                  <p className="w-[150px]">Item Name</p>
+                  <p>Qty.</p>
+                  <p>Price</p>
+                  <p>Total</p>
+                  <p></p>
                </div>
-            </div>
+               {fields.map((field, index) => (
+                  <div
+                     key={field.id}
+                     className="group-inputs grid gap-x-5 items-center"
+                  >
+                     <InputField
+                        fieldName={register(`items.${index}.itemName`)}
+                        errorMessage={errors.items?.[index]?.itemName}
+                     />
 
-            <div className="flex justify-around group-input-labels">
-               <p className="w-[150px]">Item Name</p>
-               <p>Qty.</p>
-               <p>Price</p>
-               <p>Total</p>
-               <p></p>
-            </div>
-            {fields.map((field, index) => (
-               <div
-                  key={field.id}
-                  className="group-inputs grid gap-x-5 items-center"
+                     <InputField
+                        fieldName={register(`items.${index}.quantity`)}
+                        errorMessage={errors.items?.[index]?.quantity}
+                        type="number"
+                     />
+                     <InputField
+                        fieldName={register(`items.${index}.price`)}
+                        errorMessage={errors.items?.[index]?.price}
+                        type="number"
+                     />
+                     <p>
+                        {items?.[index]?.quantity && items?.[index]?.price
+                           ? items[index].quantity * items[index].price
+                           : 0}
+                     </p>
+                     <button type="button" onClick={() => remove(index)}>
+                        <img src="../assets/icons/icon-delete.png" alt="" />
+                     </button>
+                  </div>
+               ))}
+               <button
+                  type="button"
+                  onClick={() =>
+                     append({ itemName: '', quantity: '', price: '' })
+                  }
+                  className="bg-black-2 rounded-full font-bold w-full text-grey py-3 mt-5"
                >
-                  <InputField
-                     fieldName={register(`items.${index}.itemName`)}
-                     errorMessage={errors.items?.[index]?.itemName}
-                  />
+                  + Add New Item
+               </button>
+            </div>
 
-                  <InputField
-                     fieldName={register(`items.${index}.quantity`)}
-                     errorMessage={errors.items?.[index]?.quantity}
-                     type="number"
-                  />
-                  <InputField
-                     fieldName={register(`items.${index}.price`)}
-                     errorMessage={errors.items?.[index]?.price}
-                     type="number"
-                  />
-                  <p>
-                     {items?.[index]?.quantity && items?.[index]?.price
-                        ? items[index].quantity * items[index].price
-                        : 0}
-                  </p>
-                  <button type="button" onClick={() => remove(index)}>
-                     <img src="../assets/icons/icon-delete.png" alt="" />
-                  </button>
-               </div>
-            ))}
-            <button
-               type="button"
-               onClick={() => append({ itemName: '', quantity: '', price: '' })}
-               className="bg-black-2 rounded-full font-bold w-full text-grey py-3 mt-5"
-            >
-               + Add New Item
-            </button>
-
-            <div className="bottom-btns">
-               <div className="flex justify-between control-btn">
+            <div className="bottom-btns md:px-14">
+               <div className="flex  flex-wrap sm:justify-between control-btn">
                   <button
-                     className="bg-black-2 text-grey-5"
+                     className="bg-black-2 text-grey-5 mb-3 sm:mb-0"
                      type="button"
                      onClick={closeModal}
                   >
