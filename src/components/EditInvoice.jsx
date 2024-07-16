@@ -6,6 +6,8 @@ import InvoiceLayout from './layout/InvoiceLayout';
 import InputField from './shared/InputField';
 import SelectDropdown from './shared/SelectDropdown';
 import schemas from '../schema/index';
+import DATE from '../utils/date';
+import { paymentTermOptions } from '../utils/paymentOptions';
 
 export default function EditInvoice({ onSuccess, closeModal, invoice }) {
    const invoiceList = useSelector((state) => state.invoice.invoiceList);
@@ -62,18 +64,14 @@ export default function EditInvoice({ onSuccess, closeModal, invoice }) {
          ...draftData,
          items: updatedItems,
          totalSum,
+         paymentDueDate: DATE.getPaymentDueDate(
+            draftData?.invoiceDate,
+            Number(draftData?.paymentTerms?.value),
+         ),
       };
-
       dispatch(editAndSaveInvoice(newInvoice));
       onSuccess(true);
    }
-
-   const paymentTermOptions = [
-      { value: '1 day', label: 'Net 1 day' },
-      { value: '7-days', label: 'Net 7 days' },
-      { value: '14-days', label: 'Net 14 days' },
-      { value: '30-days', label: 'Net 30 days' },
-   ];
 
    return (
       <InvoiceLayout>

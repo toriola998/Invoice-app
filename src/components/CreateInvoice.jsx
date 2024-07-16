@@ -2,10 +2,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addInvoiceToList } from '../store/invoiceSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { paymentTermOptions } from '../utils/paymentOptions';
 import InvoiceLayout from './layout/InvoiceLayout';
 import InputField from './shared/InputField';
 import SelectDropdown from './shared/SelectDropdown';
 import schemas from '../schema/index';
+import DATE from '../utils/date';
 
 export default function CreateInvoice({ onSuccess, closeModal }) {
    const invoiceList = useSelector((state) => state.invoice.invoiceList);
@@ -60,8 +62,11 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
          ...draftData,
          items: updatedItems,
          totalSum,
+         paymentDueDate: DATE.getPaymentDueDate(
+            draftData?.invoiceDate,
+            Number(draftData?.paymentTerms?.value),
+         ),
       };
-
       dispatch(addInvoiceToList(newInvoice));
       onSuccess(true);
       console.log(draftData, invoiceList);
@@ -82,18 +87,15 @@ export default function CreateInvoice({ onSuccess, closeModal }) {
          ...draftData,
          items: updatedItems,
          totalSum,
+         paymentDueDate: DATE.getPaymentDueDate(
+            draftData?.invoiceDate,
+            Number(draftData?.paymentTerms?.value),
+         ),
       };
 
       dispatch(addInvoiceToList(newInvoice));
       onSuccess(true);
    }
-
-   const paymentTermOptions = [
-      { value: '1 day', label: 'Net 1 day' },
-      { value: '7-days', label: 'Net 7 days' },
-      { value: '14-days', label: 'Net 14 days' },
-      { value: '30-days', label: 'Net 30 days' },
-   ];
 
    return (
       <InvoiceLayout>

@@ -28,6 +28,19 @@ const DATE = {
       const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
       return formattedDate;
    },
+
+   getPaymentDueDate: (dateString, n) => {
+      const [year, month, day] = dateString.split('-').map(Number);
+      const startDate = new Date(year, month - 1, day);
+
+      const paymentNetDay = new Date(startDate);
+      paymentNetDay.setDate(startDate.getDate() + (n - 1));
+
+      // Format the date as YYYY-MM-DD
+      const formattedDate = `${paymentNetDay.getFullYear()}-${String(paymentNetDay.getMonth() + 1).padStart(2, '0')}-${String(paymentNetDay.getDate()).padStart(2, '0')}`;
+
+      return DATE.formatDate(formattedDate);
+   },
 };
 
 export default DATE;

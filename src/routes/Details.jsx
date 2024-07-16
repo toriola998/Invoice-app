@@ -73,7 +73,7 @@ export default function Details() {
                         <p>
                            <span>Payment Due</span>
                            <br></br>
-                           <span>21 Aug 2021</span>
+                           <span>{invoice?.paymentDueDate}</span>
                         </p>
                         <p className="medium-13 leading-5 address mt-2">
                            <span>{invoice?.clientAddress}</span>
