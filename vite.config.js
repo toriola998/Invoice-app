@@ -4,14 +4,14 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
    plugins: [react()],
-   resolve: {
-      alias: {
-        'react-redux': require.resolve('react-redux')
-      }
-    },
-    build: {
+   build: {
       rollupOptions: {
-        external: ['react-redux']
-      }
-    }
+         external: ['react-redux'],
+      },
+   },
+   // resolve: {
+   //    alias: {
+   //      'react-redux': require.resolve('react-redux')
+   //    }
+   //  },
 });
