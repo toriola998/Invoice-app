@@ -26,9 +26,9 @@ const DATE = {
 
       // Format the date in the desired format "8 Sep 2023"
       const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
-      if(inputDate) {
-         return formattedDate
-      }else return
+      if (inputDate) {
+         return formattedDate;
+      } else return;
    },
 
    getPaymentDueDate: (dateString, n) => {
@@ -41,9 +41,9 @@ const DATE = {
       // Format the date as YYYY-MM-DD
       const formattedDate = `${paymentNetDay.getFullYear()}-${String(paymentNetDay.getMonth() + 1).padStart(2, '0')}-${String(paymentNetDay.getDate()).padStart(2, '0')}`;
 
-      if(dateString) {
+      if (dateString) {
          return DATE.formatDate(formattedDate);
-      }else return
+      } else return;
    },
 };
 
