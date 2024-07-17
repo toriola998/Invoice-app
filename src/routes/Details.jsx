@@ -18,7 +18,7 @@ export default function Details() {
    const [showEditInvoice, setShowEditInvoice] = useState(false);
    const navigate = useNavigate();
    const invoice = invoiceList.find((item) => item.id === id);
-   
+
    function delete_Invoice() {
       dispatch(deleteInvoice(invoice.id));
       navigate('/');

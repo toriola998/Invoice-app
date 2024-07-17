@@ -7,7 +7,7 @@ import EmptyState from '../components/shared/EmptyState';
 import PageLayout from '../components/layout/PageLayout';
 
 export default function Home() {
-   const invoiceList = useSelector((state) => state.invoice.invoiceList);
+   const invoiceList = useSelector((state) => state.invoice.invoiceList ?? []);
    const [showForm, setShowForm] = useState(false);
 
    return (
@@ -18,7 +18,7 @@ export default function Home() {
             }}
          />
          <main>
-            {invoiceList.length === 0 ? (
+            {invoiceList?.length === 0 ? (
                <EmptyState />
             ) : (
                invoiceList?.map((item, index) => (
