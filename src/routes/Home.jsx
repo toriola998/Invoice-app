@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { selectFilteredInvoices } from '../store/invoiceSlice';
 import TheHeader from '../components/home/TheHeader';
 import CreateInvoice from '../components/CreateInvoice';
 import Invoice from '../components/home/Invoice';
@@ -7,7 +8,8 @@ import EmptyState from '../components/shared/EmptyState';
 import PageLayout from '../components/layout/PageLayout';
 
 export default function Home() {
-   const invoiceList = useSelector((state) => state.invoice.invoiceList ?? []);
+   //const invoiceList = useSelector((state) => state.invoice.invoiceList ?? []);
+   const filteredInvoices = useSelector(selectFilteredInvoices);
    const [showForm, setShowForm] = useState(false);
 
    return (
@@ -18,10 +20,10 @@ export default function Home() {
             }}
          />
          <main>
-            {invoiceList?.length === 0 ? (
+            {filteredInvoices?.length === 0 ? (
                <EmptyState />
             ) : (
-               invoiceList?.map((item, index) => (
+               filteredInvoices?.map((item, index) => (
                   <Invoice
                      key={index}
                      id={item.id}

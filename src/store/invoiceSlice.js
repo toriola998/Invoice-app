@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 
 const initialState = {
    invoiceList: [],
+   filters: [],
 };
 
 export const invoiceSlice = createSlice({
@@ -31,6 +33,14 @@ export const invoiceSlice = createSlice({
             state.invoiceList[invoiceIndex] = invoiceToBeEdited;
          }
       },
+      addFilter: (state, action) => {
+         state.filters.push(action.payload);
+      },
+      removeFilter: (state, action) => {
+         state.filters = state.filters.filter(
+            (filter) => filter !== action.payload,
+         );
+      },
    },
 });
 export const {
@@ -38,6 +48,22 @@ export const {
    deleteInvoice,
    markInvoiceAsPaid,
    editAndSaveInvoice,
+   addFilter,
+   removeFilter,
 } = invoiceSlice.actions;
 
 export default invoiceSlice.reducer;
+
+// Memoized selector to get filtered invoices
+export const selectInvoiceList = (state) => state.invoice.invoiceList;
+export const selectFilters = (state) => state.invoice.filters;
+
+export const selectFilteredInvoices = createSelector(
+   [selectInvoiceList, selectFilters],
+   (invoiceList, filters) => {
+      if (filters.length === 0) {
+         return invoiceList;
+      }
+      return invoiceList.filter((invoice) => filters.includes(invoice.status));
+   },
+);

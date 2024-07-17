@@ -19,6 +19,7 @@ import invoiceReducer from './invoiceSlice';
 const persistConfig = {
    key: 'root',
    storage,
+   blacklist: ['filters'], // filters will not be persisted in storage
 };
 
 const persistedReducer = persistReducer(persistConfig, invoiceReducer);

@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addInvoiceToList } from '../store/invoiceSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
@@ -10,7 +10,6 @@ import schemas from '../schema/index';
 import DATE from '../utils/date';
 
 export default function CreateInvoice({ onSuccess, closeModal }) {
-   const invoiceList = useSelector((state) => state.invoice.invoiceList);
    const dispatch = useDispatch();
 
    const {
