@@ -23,11 +23,6 @@ export const invoiceSlice = createSlice({
          } else return;
       },
       editAndSaveInvoice: (state, action) => {
-         // const invoiceToBeEdited = action.payload;
-         // const invoice = state.invoiceList.find((item) => item.id === invoiceToBeEdited.id);
-         // if (invoice) {
-         //    invoice = invoiceToBeEdited
-         // } else return;
          const invoiceToBeEdited = action.payload;
          const invoiceIndex = state.invoiceList.findIndex(
             (item) => item.id === invoiceToBeEdited.id,

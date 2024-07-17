@@ -38,3 +38,24 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export { store, persistor };
+
+/***** IN CASE OF MULTIPLE SLICES, USE COMBINED REDUCERS *****/
+// import { configureStore, combineReducers } from '@reduxjs/toolkit';
+// const rootReducer = combineReducers({
+//    invoice: invoiceReducer,
+//    //user: userReducer,
+// });
+
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// const store = configureStore({
+//    reducer: persistedReducer,
+// });
+
+// const persistor = persistStore(store);
+
+// store.subscribe(() => {
+//    console.log("Store state:", store.getState());
+// });
+
+// export { store, persistor };
